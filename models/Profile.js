@@ -42,26 +42,27 @@ const ProfileSchema = new Schema({
         type: String,
         required: true
       },
-    company: {
-      type: String,
-      required: true
-    },
-    location: {
-      type: String
-    },
-    from: {
-      type: String,
-      required: true
-    },
-    to: {
-      type: String,
-    },
-    current: {
-      type: Boolean,
-      default:false
-    },
-    description: {
-      type: String
+      company: {
+        type: String,
+        required: true
+      },
+      location: {
+        type: String
+      },
+      from: {
+        type: String,
+        required: true
+      },
+      to: {
+        type: String
+      },
+      current: {
+        type: Boolean,
+        default: false
+      },
+      description: {
+        type: String
+      }
     }
   ],
   education: [
@@ -70,27 +71,28 @@ const ProfileSchema = new Schema({
         type: String,
         required: true
       },
-    degree: {
-      type: String,
-      required: true
-    },
-    fieldofstudy: {
-      type: String,
-      required: true
-    },
-    from: {
-      type: String,
-      required: true
-    },
-    to: {
-      type: String,
-    },
-    current: {
-      type: Boolean,
-      default:false
-    },
-    description: {
-      type: String
+      degree: {
+        type: String,
+        required: true
+      },
+      fieldofstudy: {
+        type: String,
+        required: true
+      },
+      from: {
+        type: String,
+        required: true
+      },
+      to: {
+        type: String
+      },
+      current: {
+        type: Boolean,
+        default: false
+      },
+      description: {
+        type: String
+      }
     }
   ],
   social: {
@@ -108,7 +110,7 @@ const ProfileSchema = new Schema({
     },
     instagram: {
       type: String
-    },
+    }
   },
   date: {
     type: Date,
