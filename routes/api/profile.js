@@ -4,6 +4,8 @@ const passport = require('passport');
 
 const router = express.Router();
 
+// Load validation
+const validateProfileInput = require('../../validation/profile');
 // Load profile model
 const Profile = require('../../models/Profile');
 // Load user profile
@@ -23,6 +25,7 @@ router.get(
   (req, res) => {
     const errors = {};
     Profile.findOne({ user: req.user.id })
+      .populate('user', ['name', 'avatar'])
       .then(profile => {
         if (!profile) {
           errors.noprofile = 'There is no profile for this user';
@@ -37,10 +40,18 @@ router.get(
 // @route POST api/profile
 // @desc Create  or edit user profile
 // @access Private
-router.get(
+router.post(
   '/',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
+    const { errors, isValid } = validateProfileInput(req.body);
+
+    // Check Validation
+    if (!isValid) {
+      // Return any errors with 400 status
+      return res.status(400).json(errors);
+    }
+
     // Get fields
     const profileFields = {};
     profileFields.user = req.user.id;
@@ -52,7 +63,7 @@ router.get(
     if (req.body.status) profileFields.status = req.body.status;
     if (req.body.githubusername)
       profileFields.githubusername = req.body.githubusername;
-    // Skills - Split into array
+    // Skills - Spilt into array
     if (typeof req.body.skills !== 'undefined') {
       profileFields.skills = req.body.skills.split(',');
     }
@@ -67,14 +78,14 @@ router.get(
 
     Profile.findOne({ user: req.user.id }).then(profile => {
       if (profile) {
-        // Update profile
+        // Update
         Profile.findOneAndUpdate(
           { user: req.user.id },
           { $set: profileFields },
           { new: true }
         ).then(profile => res.json(profile));
       } else {
-        // Create profile
+        // Create
 
         // Check if handle exists
         Profile.findOne({ handle: profileFields.handle }).then(profile => {
@@ -82,7 +93,8 @@ router.get(
             errors.handle = 'That handle already exists';
             res.status(400).json(errors);
           }
-          // Save profile
+
+          // Save Profile
           new Profile(profileFields).save().then(profile => res.json(profile));
         });
       }
