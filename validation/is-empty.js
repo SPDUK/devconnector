@@ -1,3 +1,5 @@
+// if the value coming in is empty it will return true, else false
+
 const isEmpty = value =>
   value === undefined ||
   value === null ||

@@ -11,7 +11,6 @@ module.exports = function validateLoginInput(data) {
   if (!Validator.isEmail(data.email)) {
     errors.email = 'Email is invalid';
   }
-
   if (Validator.isEmpty(data.email)) {
     errors.email = 'Email field is required';
   }
@@ -19,10 +18,13 @@ module.exports = function validateLoginInput(data) {
   if (Validator.isEmpty(data.password)) {
     errors.password = 'Password field is required';
   }
-  // returns an object with two properties errors and isValid, isEmpty has it's own properties such as errors.email
+  // returns an object with two properties errors and isValid,
   // errors.email = "email is invalid"
+  // isValid: true
   return {
     errors,
+    // if there are no errors (errors is blank) then it returns true
+    // if there are any errors inside the error object it returns false and is not valid
     isValid: isEmpty(errors)
   };
 };

@@ -61,13 +61,14 @@ router.post('/register', (req, res) => {
 // @desc Login User / Returning JWT Token
 // @access Public
 router.post('/login', (req, res) => {
+  // the return of validateLoginInput(req.body) is destructured to 2 objects
   const { errors, isValid } = validateLoginInput(req.body);
-
-  // Check Validation
+  // if the result of passing req.body into validateLoginInput returns false
+  // (meaning there are errors inside the error object being returned)
+  // show the errors in json -- "email" : "Email is invalid"
   if (!isValid) {
     return res.status(400).json(errors);
   }
-
   const email = req.body.email;
   const password = req.body.password;
 
