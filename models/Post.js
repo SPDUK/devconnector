@@ -5,6 +5,8 @@ const Schema = mongoose.Schema;
 // create schema
 const PostSchema = new Schema({
   user: {
+    // _id from user model
+    // used for popluating
     type: Schema.Types.ObjectId,
     ref: 'users'
   },
