@@ -65,16 +65,17 @@ router.post('/login', (req, res) => {
   const { errors, isValid } = validateLoginInput(req.body);
   // if the result of passing req.body into validateLoginInput returns false
   // (meaning there are errors inside the error object being returned)
-  // show the errors in json -- "email" : "Email is invalid"
+  // show the errors in json -- "email" : "Email is invalid" and stop
   if (!isValid) {
     return res.status(400).json(errors);
   }
+  // set email and password constants to the user inputs
   const email = req.body.email;
   const password = req.body.password;
 
-  // Find user by email
+  // check mongoDB to find a user with this email
   User.findOne({ email }).then(user => {
-    // Check for user
+    // if there is no user matching the email searched show the errors and add a new field 'email'
     if (!user) {
       errors.email = 'User not found';
       return res.status(404).json(errors);
