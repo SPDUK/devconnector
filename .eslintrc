@@ -82,7 +82,7 @@
       {
         "trailingComma": "none",
         "singleQuote": true,
-        "printWidth": 80
+        "printWidth": 100
       }
     ],
     "jsx-a11y/href-no-hash": "off",
