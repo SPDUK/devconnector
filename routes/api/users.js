@@ -52,7 +52,11 @@ router.post('/register', (req, res) => {
         newUser.password = hash;
         newUser
           .save()
-          .then(user => res.json(user))
+          // creating a new variable from the save() and naming it newSavedUser
+          // returning newSavedUser as json
+          // same as newUser, but what the db returns not the input, no difference
+          // in this case but maybe different in others
+          .then(newSavedUser => res.json(newSavedUser))
           .catch(err => console.log(err));
       });
     });

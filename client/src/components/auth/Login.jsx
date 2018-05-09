@@ -22,7 +22,6 @@ export default class Login extends Component {
       email: this.state.email,
       password: this.state.password
     };
-    // axios.post('api/users/register', newUser);
   }
 
   render() {
