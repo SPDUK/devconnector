@@ -18,6 +18,7 @@ export default class Login extends Component {
   }
   onSubmit(e) {
     e.preventDefault();
+    // eslint-disable-next-line
     const user = {
       email: this.state.email,
       password: this.state.password

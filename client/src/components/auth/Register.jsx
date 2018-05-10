@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 import classnames from 'classnames';
+import { connect } from 'react-redux';
+import { registerUser } from '../../actions/authActions';
 
-export default class Register extends Component {
+class Register extends Component {
   constructor() {
     super();
     this.state = {
@@ -28,17 +31,21 @@ export default class Register extends Component {
       password: this.state.password,
       password2: this.state.password2
     };
-    axios
-      .post('api/users/register', newUser)
-      .then(res => console.log(res.data))
-      .catch(err => this.setState({ errors: err.response.data }));
+    // axios
+    //   .post('api/users/register', newUser)
+    //   .then(res => console.log(res.data))
+    //   .catch(err => this.setState({ errors: err.response.data }));
+    this.props.registerUser(newUser);
   }
 
   render() {
     // same as: const errors = this.state.errors
     const { errors } = this.state;
+    // same as: const user = this.props.auth.user
+    const { user } = this.props.auth;
     return (
       <div className="register">
+        {user ? user.name : null}
         <div className="container">
           <div className="row">
             <div className="col-md-8 m-auto">
@@ -87,7 +94,6 @@ export default class Register extends Component {
                   />
                   {errors.password && <div className="invalid-feedback">{errors.password}</div>}
                 </div>
-
                 <div className="form-group">
                   <input
                     type="password"
@@ -110,3 +116,14 @@ export default class Register extends Component {
     );
   }
 }
+
+Register.PropTypes = {
+  registerUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
+};
+const mapStateToProps = state => ({
+  // comes from root reducer index.js
+  auth: state.auth
+});
+
+export default connect(mapStateToProps, { registerUser })(Register);
