@@ -15,6 +15,11 @@ export const registerUser = (userData, history) => dispatch => {
     );
 };
 
+export const setCurrentUser = decoded => ({
+  type: SET_CURRENT_USER,
+  payload: decoded
+});
+
 // login - get user token
 export const loginUser = userData => dispatch => {
   axios
@@ -41,7 +46,7 @@ export const loginUser = userData => dispatch => {
 
 // set logged in user
 
-export const setCurrentUser = decoded => ({
-  type: SET_CURRENT_USER,
-  payload: decoded
-});
+// export const setCurrentUser = decoded => ({
+//   type: SET_CURRENT_USER,
+//   payload: decoded
+// });
