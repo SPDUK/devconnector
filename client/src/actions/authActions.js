@@ -15,11 +15,6 @@ export const registerUser = (userData, history) => dispatch => {
     );
 };
 
-export const setCurrentUser = decoded => ({
-  type: SET_CURRENT_USER,
-  payload: decoded
-});
-
 // login - get user token
 export const loginUser = userData => dispatch => {
   axios
@@ -34,6 +29,7 @@ export const loginUser = userData => dispatch => {
       // decode token to get user data
       const decoded = jwt_decode(token);
       // set current user
+      // eslint-disable-next-line
       dispatch(setCurrentUser(decoded));
     })
     .catch(err =>
@@ -45,8 +41,18 @@ export const loginUser = userData => dispatch => {
 };
 
 // set logged in user
+export const setCurrentUser = decoded => ({
+  type: SET_CURRENT_USER,
+  payload: decoded
+});
 
-// export const setCurrentUser = decoded => ({
-//   type: SET_CURRENT_USER,
-//   payload: decoded
-// });
+// log user out
+export const logoutUser = () => dispatch => {
+  // remove token from localStorage
+  localStorage.removeItem('jwtToken');
+  // remove auth header for future requests
+  setAuthToken(false);
+  // set current user to empty object
+  // which will set isAuthenticated to false
+  dispatch(setCurrentUser({}));
+};
