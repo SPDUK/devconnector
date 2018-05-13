@@ -10,7 +10,6 @@ class CreateProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      displaySocialInputs: false,
       handle: '',
       company: '',
       website: '',
@@ -39,7 +38,55 @@ class CreateProfile extends Component {
   }
 
   render() {
-    const { errors } = this.state;
+    const { errors, displaySocialInputs } = this.state;
+
+    let socialInputs;
+    if (displaySocialInputs) {
+      socialInputs = (
+        <div>
+          <InputGroup
+            placeholder="Twitter Profile URL"
+            name="twitter"
+            icon="fa fa-twitter"
+            value={this.state.twitter}
+            onChange={this.onChange}
+            error={errors.twitter}
+          />
+          <InputGroup
+            placeholder="Facebook Profile URL"
+            name="facebook"
+            icon="fa fa-facebook"
+            value={this.state.facebook}
+            onChange={this.onChange}
+            error={errors.facebook}
+          />
+          <InputGroup
+            placeholder="Linkedin Profile URL"
+            name="linkedin"
+            icon="fa fa-linkedin"
+            value={this.state.linkedin}
+            onChange={this.onChange}
+            error={errors.linkedin}
+          />
+          <InputGroup
+            placeholder="Youtube Channel URL"
+            name="youtube"
+            icon="fa fa-youtube"
+            value={this.state.youtube}
+            onChange={this.onChange}
+            error={errors.youtube}
+          />
+          <InputGroup
+            placeholder="Instagram Page URL"
+            name="instagram"
+            icon="fa fa-instagram"
+            value={this.state.instagram}
+            onChange={this.onChange}
+            error={errors.instagram}
+          />
+        </div>
+      );
+    }
 
     // Select options for status
     const options = [
@@ -142,8 +189,10 @@ class CreateProfile extends Component {
                   >
                     Add Social Network Links
                   </button>
-                  <span className="text-muted">Optional</span>
+                  <span className="text-muted"> Optional</span>
                 </div>
+                {socialInputs}
+                <input type="submit" value="Submit" className="btn btn-info btn-block mt-4" />
               </form>
             </div>
           </div>
