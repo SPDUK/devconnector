@@ -4,7 +4,8 @@ import {
   PROFILE_LOADING,
   CLEAR_CURRENT_PROFILE,
   GET_ERRORS,
-  SET_CURRENT_USER
+  SET_CURRENT_USER,
+  GET_PROFILES
 } from './types';
 
 // profile loading
@@ -16,6 +17,25 @@ export const setProfileLoading = () => ({
 export const clearCurrentProfile = () => ({
   type: CLEAR_CURRENT_PROFILE
 });
+
+export const getProfiles = () => dispatch => {
+  dispatch(setProfileLoading());
+  axios
+    .get('/api/profile/all')
+    .then(res =>
+      dispatch({
+        type: GET_PROFILES,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_PROFILES,
+        payload: null
+      })
+    );
+};
+
 // create profile
 export const createProfile = (profileData, history) => dispatch => {
   axios
@@ -76,7 +96,7 @@ export const addEducation = (eduData, history) => dispatch => {
     );
 };
 
-// delete experience
+// delete  a single experience by ID
 export const deleteExperience = id => dispatch => {
   axios
     .delete(`/api/profile/experience/${id}`)
@@ -94,6 +114,7 @@ export const deleteExperience = id => dispatch => {
     );
 };
 
+// delete a single education by ID
 export const deleteEducation = id => dispatch => {
   axios
     .delete(`/api/profile/education/${id}`)
