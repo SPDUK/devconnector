@@ -161,7 +161,7 @@ class CreateProfile extends Component {
                   info="Could be your own company or one you work for"
                 />
                 <TextFieldGroup
-                  placeholder="Website"
+                  placeholder="Website (eg. http://www.google.com)"
                   name="website"
                   value={this.state.website}
                   onChange={this.onChange}
