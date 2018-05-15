@@ -21,14 +21,14 @@
 
 ```
 module.exports = {
-  mongoURI: 'mongoURIGoesHere'
+  mongoURI: 'mongoURIGoesHere',
   secretOrKey: 'secretOrKeyGoesHere'
 };
 ```
 ##### /client/src/components/profile/ProfileGithub needs to be replaced with:
 -- found in OAuth application settings on github, for the API call.
 ```
-    clientId: clientIdGoesHere
+    clientId: clientIdGoesHere,
     clientSecret: clientSecretGoesHere,
 ```
 
