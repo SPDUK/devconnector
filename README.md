@@ -1,6 +1,6 @@
 # DevConnector
 
-
+Might take a while to wake up because it is hosted on heroku and mlab which put things to sleep, but it does work I promise.
 
 ##### Live website at: https://devconnector-spduk.herokuapp.com/
 ##### Learned from : https://www.udemy.com/mern-stack-front-to-back/
